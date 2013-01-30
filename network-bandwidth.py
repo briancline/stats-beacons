@@ -102,7 +102,7 @@ class NetworkBandwidthBeacon(StatsBeacon):
 
     def send(self, interface, stats):
         for stat in stats.keys():
-            #print "sending %s" % {'host': self.get_hostname(),
+            #print 'sending %s' % {'host': self.get_hostname(),
             #                      'service': stat,
             #                      'metric': stats[stat]}
             self.riemann.send({'host': self.get_hostname(),
@@ -110,6 +110,6 @@ class NetworkBandwidthBeacon(StatsBeacon):
                                'metric': stats[stat]})
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     beacon = NetworkBandwidthBeacon()
     beacon.run()
