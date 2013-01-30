@@ -28,8 +28,9 @@ class StatsBeacon(object):
         self.sleep_time = self.poll_interval
 
         self.riemann = bernhard.Client(host=self.config.get('riemann', 'host'),
-                                  port=self.config.getint('riemann', 'port'),
-                                  transport=bernhard.UDPTransport)
+                                       port=self.config.getint('riemann',
+                                                               'port'),
+                                       transport=bernhard.UDPTransport)
 
         self.beacon_init()
 
@@ -42,7 +43,7 @@ class StatsBeacon(object):
     def get_timestamp(self):
         now = datetime.datetime.now()
         return (now.strftime('%Y-%m-%d %H:%M:%S.%%(msec)03d %z') %
-                            {'msec': int(now.strftime('%f')) / 1000})
+                {'msec': int(now.strftime('%f')) / 1000})
 
     def get_hostname(self):
         return os.uname()[1]
@@ -55,7 +56,7 @@ class StatsBeacon(object):
             time.sleep(self.sleep_time)
 
     def poll(self):
-        raise Exception('Jane, stop this crazy thing! Missing a poll() method.')
+        raise Exception('Jane, stop this crazy thing! Define a poll() method.')
 
 
 class NetworkBandwidthBeacon(StatsBeacon):
@@ -87,7 +88,7 @@ class NetworkBandwidthBeacon(StatsBeacon):
                      'tx.bytes':   long(bits[9]),
                      'tx.packets': long(bits[10]),
                      'tx.errors':  long(bits[11])
-                    }
+                     }
 
             if interface in self.ifstats:
                 stats_diff = {
