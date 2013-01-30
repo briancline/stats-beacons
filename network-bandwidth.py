@@ -8,11 +8,11 @@ from ConfigParser import ConfigParser
 
 
 @contextmanager
-def sliding_sleep_time(beacon, desired_wait_secs):
+def sliding_sleep_time(beacon):
     start = time.time()
     yield
     beacon.sleep_time = (beacon.poll_interval -
-                         (beacon.poll_interval / 1000) -
+                         (beacon.sleep_time / 1000) -
                          (time.time() - start))
 
 
@@ -50,7 +50,7 @@ class StatsBeacon(object):
 
     def run(self):
         while True:
-            with(sliding_sleep_time(self, self.poll_interval)):
+            with(sliding_sleep_time(self)):
                 self.poll()
 
             time.sleep(self.sleep_time)
