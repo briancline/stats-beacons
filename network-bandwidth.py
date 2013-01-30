@@ -91,20 +91,11 @@ class NetworkBandwidthBeacon(StatsBeacon):
                      }
 
             if interface in self.ifstats:
-                stats_diff = {
-                    'rx.bytes':   (stats['rx.bytes'] -
-                                   self.ifstats[interface]['rx.bytes']),
-                    'rx.packets': (stats['rx.packets'] -
-                                   self.ifstats[interface]['rx.packets']),
-                    'rx.errors':  (stats['rx.errors'] -
-                                   self.ifstats[interface]['rx.errors']),
-                    'tx.bytes':   (stats['tx.bytes'] -
-                                   self.ifstats[interface]['tx.bytes']),
-                    'tx.packets': (stats['tx.packets'] -
-                                   self.ifstats[interface]['tx.packets']),
-                    'tx.errors':  (stats['tx.errors'] -
-                                   self.ifstats[interface]['tx.errors'])
-                }
+                stats_diff = {}
+
+                for metric in stats:
+                    stats_diff[metric] = (stats[metric] -
+                                          self.ifstats[interface][metric])
 
                 self.send(interface, stats_diff)
 
