@@ -87,8 +87,7 @@ class NetworkBandwidthBeacon(StatsBeacon):
                      'rx.errors':  long(bits[3]),
                      'tx.bytes':   long(bits[9]),
                      'tx.packets': long(bits[10]),
-                     'tx.errors':  long(bits[11])
-                     }
+                     'tx.errors':  long(bits[11])}
 
             if interface in self.ifstats:
                 stats_diff = {}
@@ -103,9 +102,9 @@ class NetworkBandwidthBeacon(StatsBeacon):
 
     def send(self, interface, stats):
         for stat in stats.keys():
-            print "sending %s" % {'host': self.get_hostname(),
-                                  'service': stat,
-                                  'metric': stats[stat]}
+            #print "sending %s" % {'host': self.get_hostname(),
+            #                      'service': stat,
+            #                      'metric': stats[stat]}
             self.riemann.send({'host': self.get_hostname(),
                                'service': stat,
                                'metric': stats[stat]})
