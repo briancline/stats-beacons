@@ -21,14 +21,8 @@ class LogTailerBeacon(PollingBeacon):
             self.send(line)
 
     def send(self, line):
-        print({'host': self.get_hostname(),
-               'service': self.service_name,
-               'state': "ok",
-               'time': time.time(),
-               'metric': 0,
-               'description': line})
         self.riemann.send({'host': self.get_hostname(),
-                           'service': self.service_name,
+                           'service': self.service,
                            'state': "ok",
                            'time': time.time(),
                            'metric': 0,
